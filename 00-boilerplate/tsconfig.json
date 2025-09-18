@@ -12,9 +12,14 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "baseUrl": "./src/",
+    "types": ["vitest/globals"],
     "paths": {
       "#*": ["*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*",
+    "./config/test/config.d.ts",
+    "./config/test/setup.ts"
+  ]
 }
