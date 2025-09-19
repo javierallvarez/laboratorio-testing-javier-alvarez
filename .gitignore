@@ -1,2 +1,3 @@
 00-boilerplate/.env
 00-boilerplate/test-results/.last-run.json
+00-boilerplate/playwright-report/index.html

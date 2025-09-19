@@ -4,8 +4,8 @@ export const TEST_CREDENTIALS = {
     password: process.env.TEST_PASSWORD
   },
   INVALID: {
-    user: 'manolo',
-    password: 'cabezabolo'
+    user: process.env.TEST_USER_INVALID,
+    password: process.env.TEST_PASSWORD_INVALID
   }
 } as const;
 
