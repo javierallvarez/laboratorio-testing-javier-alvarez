@@ -1,0 +1,30 @@
+name: CI workflow
+
+on:
+  pull_request
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '00-boilerplate/package-lock.json'
+
+      - name: Install
+        run: |
+          cd 00-boilerplate
+          npm ci
+
+      - name: Run Vitest tests
+        run: |
+          cd 00-boilerplate
+          npm run test
+
