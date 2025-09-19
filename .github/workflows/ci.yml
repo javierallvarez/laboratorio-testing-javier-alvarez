@@ -29,3 +29,25 @@ jobs:
           cd 00-boilerplate
           npm run test
 
+      - name: Install Playwright Browsers
+        run: |
+          cd 00-boilerplate
+          npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: |
+          cd 00-boilerplate
+          npm run test:e2e
+        env:
+          TEST_USER: ${{ secrets.TEST_USER }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_BASE_URL: ${{ vars.TEST_BASE_URL }}
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: 00-boilerplate/playwright-report/
+          retention-days: 30
+
