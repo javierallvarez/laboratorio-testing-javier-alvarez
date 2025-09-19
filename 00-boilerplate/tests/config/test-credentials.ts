@@ -1,11 +1,11 @@
 export const TEST_CREDENTIALS = {
   VALID: {
-    user: process.env.TEST_USER,
-    password: process.env.TEST_PASSWORD
+    user: process.env.TEST_USER || '',
+    password: process.env.TEST_PASSWORD || ''
   },
   INVALID: {
-    user: process.env.TEST_USER_INVALID,
-    password: process.env.TEST_PASSWORD_INVALID
+    user: process.env.TEST_USER_INVALID || '',
+    password: process.env.TEST_PASSWORD_INVALID || ''
   }
 } as const;
 
