@@ -32,7 +32,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run start:dev',
     url: process.env.TEST_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },
