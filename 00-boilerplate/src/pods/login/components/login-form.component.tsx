@@ -25,18 +25,23 @@ export const LoginFormComponent: React.FunctionComponent<Props> = (props) => {
             name="user"
             label={`${literals.components.fields.user} *`}
             variant="outlined"
+            data-testid="login-user-input"
+            slotProps={{ htmlInput: { maxLength: 20 } }}
           />
           <TextFieldComponent
             name="password"
             label={`${literals.components.fields.password} *`}
             type="password"
             variant="outlined"
+            data-testid="login-password-input"
+            slotProps={{ htmlInput: { maxLength: 20 } }}
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
             className={classes.submit}
+            data-testid="login-submit-button"
           >
             Login
           </Button>
