@@ -25,31 +25,34 @@ test.describe('Login Scene E2E Tests', () => {
 
     await page.getByTestId('login-submit-button').click();
 
+    console.log('Esperando redirección a la página de submodules');
     await page.waitForURL(`**${TEST_URLS.SUBMODULE_LIST}`, { timeout: 10000 });
     await expect(page).toHaveURL(new RegExp(`.*${TEST_URLS.SUBMODULE_LIST}`));
-    console.log('Test ok!');
+    console.log('Login exitoso - redirección completada');
   });
 
 
   test('should show error message for invalid credentials', async ({ page }) => {
-    console.log(' Escribir credenciales inválidas y debería aparecer un mensaje de error');
+    console.log('Probando login con credenciales inválidas');
     await page.getByTestId('login-user-input').locator('input').fill(TEST_CREDENTIALS.INVALID.user);
     await page.getByTestId('login-password-input').locator('input').fill(TEST_CREDENTIALS.INVALID.password);
 
     await page.getByTestId('login-submit-button').click();
 
+    console.log('Esperando mensaje de error por credenciales inválidas');
     await expect(page.getByText('Usuario y/o password no válidos')).toBeVisible({ timeout: 10000 });
-    console.log('Test ok!');
+    console.log('Mensaje de error mostrado correctamente');
   });
 
 
   test('should respect character limits in input fields', async ({ page }) => {
-    console.log('Limite de 20 caracteres debe limitar');
+    console.log('Verificando límite de caracteres en campos de entrada');
     const longText = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
     await page.getByTestId('login-user-input').locator('input').fill(longText);
 
     const userValue = await page.getByTestId('login-user-input').locator('input').inputValue();
     expect(userValue.length).toBeLessThanOrEqual(20);
+    console.log(`Campo usuario limitado a ${userValue.length} caracteres`);
 
     await page.getByTestId('login-user-input').locator('input').clear();
     await page.getByTestId('login-password-input').locator('input').fill(longText);
@@ -57,6 +60,6 @@ test.describe('Login Scene E2E Tests', () => {
     const passwordValue = await page.getByTestId('login-password-input').locator('input').inputValue();
     expect(passwordValue.length).toBeLessThanOrEqual(20);
     console.log(`Campo contraseña limitado a ${passwordValue.length} caracteres`);
-    console.log('Test ok!');
+    console.log('Límites de caracteres verificados correctamente');
   });
 });
