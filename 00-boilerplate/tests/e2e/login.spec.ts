@@ -8,6 +8,7 @@ test.describe('Login Scene E2E Tests', () => {
   });
 
 
+  // Comprobamos que el formulario de login aparezca
   test('should display login form with required fields', async ({ page }) => {
     console.log('Asegurar que título, campos y botón del formulario aparezcan');
     await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
@@ -18,6 +19,7 @@ test.describe('Login Scene E2E Tests', () => {
   });
 
 
+  // Comprobamos el login con usuario y pass correctos
   test('should login successfully with valid credentials', async ({ page }) => {
     console.log('Logearse con credenciales (variables de entorno)');
     await page.getByTestId('login-user-input').locator('input').fill(TEST_CREDENTIALS.VALID.user);
@@ -32,6 +34,7 @@ test.describe('Login Scene E2E Tests', () => {
   });
 
 
+  // Comprobamos el login con usuario y pass incorrectos
   test('should show error message for invalid credentials', async ({ page }) => {
     console.log('Probando login con credenciales inválidas');
     await page.getByTestId('login-user-input').locator('input').fill(TEST_CREDENTIALS.INVALID.user);
@@ -45,6 +48,7 @@ test.describe('Login Scene E2E Tests', () => {
   });
 
 
+  // Añadí tope de 20 caracteres en los campos de usuario y contraseña, ver si limita correctamente
   test('should respect character limits in input fields', async ({ page }) => {
     console.log('Verificando límite de caracteres en campos de entrada');
     const longText = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
