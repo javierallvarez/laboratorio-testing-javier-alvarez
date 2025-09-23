@@ -42,6 +42,8 @@ jobs:
           TEST_USER: ${{ secrets.TEST_USER }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           TEST_BASE_URL: ${{ vars.TEST_BASE_URL }}
+          TEST_USER_INVALID: ${{ secrets.TEST_USER_INVALID }}
+          TEST_PASSWORD_INVALID: ${{ secrets.TEST_PASSWORD_INVALID }}
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
