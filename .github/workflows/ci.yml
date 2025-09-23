@@ -1,0 +1,55 @@
+name: CI workflow
+
+on:
+  pull_request:
+    branches: [ main, feature/laboratorio-testing-obligatorio ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '00-boilerplate/package-lock.json'
+
+      - name: Install
+        run: |
+          cd 00-boilerplate
+          npm ci
+
+      - name: Run Vitest tests
+        run: |
+          cd 00-boilerplate
+          npm run test
+
+      - name: Install Playwright Browsers
+        run: |
+          cd 00-boilerplate
+          npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: |
+          cd 00-boilerplate
+          npm run test:e2e
+        env:
+          TEST_USER: ${{ secrets.TEST_USER }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_BASE_URL: ${{ vars.TEST_BASE_URL }}
+          TEST_USER_INVALID: ${{ secrets.TEST_USER_INVALID }}
+          TEST_PASSWORD_INVALID: ${{ secrets.TEST_PASSWORD_INVALID }}
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: 00-boilerplate/playwright-report/
+          retention-days: 30
+
